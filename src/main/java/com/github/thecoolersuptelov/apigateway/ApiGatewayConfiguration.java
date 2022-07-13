@@ -20,6 +20,14 @@ public class ApiGatewayConfiguration {
                                 "/cc/(?<segment>.*)",
                                 "/currency-conversion-service/${segment}"))
                         .uri("lb://currency-conversion-service")
+
+                )
+                .route(p->p.path("/ce/**")
+                        .filters(f->f.rewritePath(
+                                "/cc/(?<segment>.*)",
+                                "/currency-exchange/${segment}"))
+                        .uri("lb://currency-exchange")
+
                 )
                 .build();
     }
